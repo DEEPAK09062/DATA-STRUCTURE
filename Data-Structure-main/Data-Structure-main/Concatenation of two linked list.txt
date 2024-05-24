@@ -1,0 +1,67 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+void insertStart(struct Node** head, int data) {
+    struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = *head;
+    *head = newNode;
+}
+
+void display(struct Node* node, const char* listName) {
+    printf("\n%s: ", listName);
+    while (node != NULL) {
+        printf("%d ", node->data);
+        node = node->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node* head1 = NULL;
+    struct Node* head2 = NULL;
+
+    insertStart(&head1, 100);
+    insertStart(&head1, 80);
+    insertStart(&head1, 60);
+    insertStart(&head1, 40);
+    insertStart(&head1, 20);
+    display(head1, "Linked List 1");
+
+    insertStart(&head2, 100);
+    insertStart(&head2, 80);
+    insertStart(&head2, 60);
+    insertStart(&head2, 40);
+    insertStart(&head2, 20);
+    display(head2, "Linked List 2");
+
+    struct Node* temp1 = head1;
+    struct Node* temp2 = head2;
+    int isEqual = 1;
+
+    while (temp1 != NULL && temp2 != NULL) {
+        if (temp1->data != temp2->data) {
+            isEqual = 0;
+            break;
+        }
+        temp1 = temp1->next;
+        temp2 = temp2->next;
+    }
+
+    if (temp1 != NULL || temp2 != NULL) {
+        isEqual = 0;
+    }
+printf("-------------------------------------\n");
+    if (isEqual) {
+        printf("  ---> Both are equal lists <---\n");
+    } else {
+        printf("  ---> Both are not equal <---\n");
+    }
+printf("-------------------------------------\n");
+    return 0;
+}
